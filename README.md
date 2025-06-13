@@ -40,86 +40,62 @@ Follow the steps below to deploy and configure this blogging platform for your p
 
 * Node.js (v18.17 or later)
 * A Notion account
-
-
-## 🚀 Menyiapkan Platform Anda
-
-Ikuti langkah-langkah di bawah ini untuk men-deploy dan mengkonfigurasi platform blogging ini untuk penggunaan pribadi Anda.
-
-### Prasyarat
-
-* Node.js (v18.17 atau lebih baru)
-* Akun Notion
-
+  
 ### 1. Clone the Repository
 
 ```bash
 git clone [https://github.com/damaisme/notion-next-blog.git](https://github.com/damaisme/notion-next-blog.git)
 cd notion-next-blog
 ```
-2. Install Dependencies
-```Bash
 
+### 2. Install Dependencies
+```Bash
 npm install
 # or
 yarn install
 # or
 pnpm install
 ```
-3. Set Up Notion
+### 3. Set Up Notion
 This is the most critical step to connect the platform to your content.
 
-Duplicate the Notion Template: If you don't have one already, duplicate a blog database template into your Notion workspace.
-Create a Notion Integration:
-Go to the Notion integrations page.
-Click "New integration," give it a name (e.g., "My Blog Platform"), and select the appropriate workspace.
-Copy your "Internal Integration Token". This is your NOTION_API_KEY.
-Get Your Database ID:
-Open your Posts database in Notion.
-Click the three-dot menu (...) > "Copy link to view".
-From the link https://www.notion.so/YOUR_WORKSPACE/DATABASE_ID?v=..., copy your DATABASE_ID.
-Connect the Integration to Your Database:
-Go back to your database page in Notion, click the three-dot menu (...) > "Add connections" > then select the integration you just created.
-4. Set Up Environment Variables
-Create a .env.local file in the project root.
+- Duplicate the Notion Template: If you don't have one already, duplicate a blog database template into your Notion workspace.
+- Create a Notion Integration:
+   - Go to the Notion integrations page.
+   - Click "New integration," give it a name (e.g., "My Blog Platform"), and select the appropriate workspace.
+   - Copy your "Internal Integration Token". This is your NOTION_API_KEY.
+   - Get Your Database ID:
+   - Open your Posts database in Notion.
+   - Click the three-dot menu (...) > "Copy link to view".
+   - From the link https://www.notion.so/YOUR_WORKSPACE/DATABASE_ID?v=..., copy your DATABASE_ID.
+- Connect the Integration to Your Database:
+   - Go back to your database page in Notion, click the three-dot menu (...) > "Add connections" > then select the integration you just created.
 
+### 4. Set Up Environment Variables
+Create a .env.local file in the project root.
+```
 .env.local
 
 NOTION_API_KEY="secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 NOTION_DATABASE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
 Replace the placeholder values with your token and database ID.
 
-5. Run the Development Server
-Bash
+### 5. Run the Development Server
+```Bash
 
 npm run dev
+```
 Open http://localhost:3000 in your browser to see your platform running with content from your Notion workspace.
 
-⚙️ Advanced Configuration
+### ⚙️ Advanced Configuration
 Notion Property Names
 Ensure the property names in the lib/notion.js file match the property names in your Notion database exactly (e.g., Status, Slug, Publish Date, Category).
 
-Image Domains
-To allow next/image to optimize images you upload to Notion, you need to add Notion's file hostname to your next.config.mjs.
 
-next.config.mjs
-
-JavaScript
-
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 's3.us-west-2.amazonaws.com', // Hostname for Notion's files
-      },
-    ],
-  },
-};
-部署 (Deployment)
+## Deployment
 This platform is designed to be easily deployed with Vercel.
-
-Push your code to a GitHub repository.
-Import your project on Vercel from the GitHub repository.
-Add your Environment Variables (NOTION_API_KEY and NOTION_DATABASE_ID) in the Vercel project settings.
+- Push your code to a GitHub repository.
+- Import your project on Vercel from the GitHub repository.
+- Add your Environment Variables (NOTION_API_KEY and NOTION_DATABASE_ID) in the Vercel project settings.
 Deploy! Your site will be live.
