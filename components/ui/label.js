@@ -4,6 +4,7 @@ export default function Label(props) {
 
   const color = {
     green: "text-emerald-700",
+    gray: "text-gray-700",
     blue: "text-blue-600",
     orange: "text-orange-700",
     purple: "text-purple-600",
@@ -27,6 +28,7 @@ export default function Label(props) {
 
   const bgcolor = {
     green: "bg-emerald-50",
+    gray: "bg-gray-50",
     blue: "bg-blue-50",
     orange: "bg-orange-50",
     purple: "bg-purple-50",
