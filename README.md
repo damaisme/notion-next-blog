@@ -5,6 +5,8 @@ Notion Next Blog a modern blogging platform powered by Notion as a headless CMS,
 ![GitHub license](https://img.shields.io/github/license/damaisme/notion-next-blog)
 
 ![image](https://github.com/user-attachments/assets/178e8e0f-b34c-49e0-a8e4-8d7c3d2c1a52)
+![image](https://github.com/user-attachments/assets/c1a5ff2c-f3e2-4581-93f4-f9056d73efa9)
+
 
 ## ✨ Platform Features
 
@@ -59,14 +61,14 @@ pnpm install
 ### 3. Set Up Notion
 This is the most critical step to connect the platform to your content.
 
-- Duplicate the Notion Template: If you don't have one already, duplicate a blog database template into your Notion workspace.
+- Duplicate the [Notion Template](https://futuristic-seagull-1eb.notion.site/Notion-Next-Blog-212872a4f66280299997e80a3b02d020?source=copy_link): If you don't have one already, duplicate a blog database template into your Notion workspace.
 - Create a Notion Integration:
    - Go to the Notion integrations page.
    - Click "New integration," give it a name (e.g., "My Blog Platform"), and select the appropriate workspace.
    - Copy your "Internal Integration Token". This is your NOTION_API_KEY.
    - Get Your Database ID:
    - Open your Posts database in Notion.
-   - Click the three-dot menu (...) > "Copy link to view".
+   - Click the three-dot menu (...) > "View Database".
    - From the link https://www.notion.so/YOUR_WORKSPACE/DATABASE_ID?v=..., copy your DATABASE_ID.
 - Connect the Integration to Your Database:
    - Go back to your database page in Notion, click the three-dot menu (...) > "Add connections" > then select the integration you just created.
@@ -76,8 +78,11 @@ Create a .env.local file in the project root.
 ```
 .env.local
 
-NOTION_API_KEY="secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-NOTION_DATABASE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+NOTION_SECRET=secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+NOTION_POST_DATABASE_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+NOTION_SETTING_DATABASE_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+NOTION_AUTHOR_DATABASE_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+REVALIDATE_SECRET=best-secret
 ```
 Replace the placeholder values with your token and database ID.
 
@@ -91,6 +96,35 @@ Open http://localhost:3000 in your browser to see your platform running with con
 ### ⚙️ Advanced Configuration
 Notion Property Names
 Ensure the property names in the lib/notion.js file match the property names in your Notion database exactly (e.g., Status, Slug, Publish Date, Category).
+
+## 🔁 Manual Revalidation
+This project supports manual content revalidation using a secure API endpoint. It's useful when you're using Notion as a headless CMS and want to instantly reflect content updates without waiting for the revalidation interval to expire.
+
+### 📌 Endpoint
+bash
+Copy
+Edit
+POST /api/revalidate?secret=YOUR_SECRET
+Example (local development):
+http://localhost:3000/api/revalidate?secret=testrevalidate
+
+### 🔐 Authentication
+To protect this endpoint, it requires a secret query parameter. Make sure the secret matches the value of REVALIDATE_SECRET in your .env.local file:
+```env
+REVALIDATE_SECRET=testrevalidate
+```
+### ✅ Example Request
+```bash
+curl -X POST "http://localhost:3000/api/revalidate?secret=testrevalidate" \
+  -H "Content-Type: application/json" \
+  -d '{"slug": "my-notion-post"}'
+```
+### ✅ Success Response
+```json
+{
+  "revalidated": true,
+}
+```
 
 
 ## Deployment
