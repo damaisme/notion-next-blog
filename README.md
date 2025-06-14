@@ -66,7 +66,7 @@ This is the most critical step to connect the platform to your content.
    - Go to the Notion integrations page.
    - Click "New integration," give it a name (e.g., "My Blog Platform"), and select the appropriate workspace.
    - Copy your "Internal Integration Token". This is your NOTION_API_KEY.
-   - Get Your Database ID:
+- Get Your Database ID (Settings, Author and Post Database):
    - Open your Posts database in Notion.
    - Click the three-dot menu (...) > "View Database".
    - From the link https://www.notion.so/YOUR_WORKSPACE/DATABASE_ID?v=..., copy your DATABASE_ID.
