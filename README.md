@@ -101,12 +101,13 @@ Ensure the property names in the lib/notion.js file match the property names in 
 This project supports manual content revalidation using a secure API endpoint. It's useful when you're using Notion as a headless CMS and want to instantly reflect content updates without waiting for the revalidation interval to expire.
 
 ### 📌 Endpoint
-bash
-Copy
-Edit
-POST /api/revalidate?secret=YOUR_SECRET
+```bash
+GET /api/revalidate?secret=YOUR_SECRET
+```
 Example (local development):
+```
 http://localhost:3000/api/revalidate?secret=testrevalidate
+```
 
 ### 🔐 Authentication
 To protect this endpoint, it requires a secret query parameter. Make sure the secret matches the value of REVALIDATE_SECRET in your .env.local file:
