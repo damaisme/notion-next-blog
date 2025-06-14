@@ -1,6 +1,6 @@
 import PostPage from "./post";
 
-import { getAllPostSlugs, getPostBySlug } from "@/lib/notion";
+import { getAllPostSlugs, getPostBySlug, getSettings } from "@/lib/notion";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs()
@@ -13,11 +13,13 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
 
   let post;
+  let settings;
   let retries = 3;
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       post = await getPostBySlug(slug);
+      settings = await getSettings();
       break; // sukses, keluar dari loop
     } catch (error) {
       if (attempt === retries) {
