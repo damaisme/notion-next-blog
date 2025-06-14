@@ -4,7 +4,7 @@ import { getAllPostSlugs, getPostBySlug } from "@/lib/notion";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs()
-  console.log(slugs)
+  // console.log(slugs)
   return slugs  
 }
 

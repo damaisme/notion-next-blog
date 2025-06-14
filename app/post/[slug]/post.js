@@ -35,7 +35,7 @@ export default function Post(props) {
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 flex-shrink-0">
                 {post && (
-                  <Link href={`/author/`}>
+                  <Link href={`/author/${post?.author?.slug}`}>
                     <Image
                       src={post.author.avatar_url}
                       alt={post?.author?.name}
@@ -48,7 +48,7 @@ export default function Post(props) {
               </div>
               <div>
                 <p className="text-gray-800 dark:text-gray-400">
-                  <Link href={`/author/`}>
+                  <Link href={`/author/${post?.author?.slug}`}>
                     {post.author.name}
                   </Link>
                 </p>
