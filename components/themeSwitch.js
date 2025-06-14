@@ -16,11 +16,11 @@ const ThemeToggle = () => {
 
   // Selama komponen belum terpasang di client, render placeholder atau null
   // untuk memastikan UI konsisten dengan server.
-  // if (!mounted) {
-  //   // Render placeholder untuk menjaga layout agar tidak bergeser
-  //   return <div className="w-9 h-9" />;
-  // }
-  //
+  if (!mounted) {
+    // Render placeholder untuk menjaga layout agar tidak bergeser
+    return <div className="w-9 h-9" />;
+  }
+
   return (
     <button
       aria-label="Toggle Dark Mode"
