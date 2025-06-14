@@ -31,17 +31,17 @@ export async function generateMetadata({ params }) {
 
 
   return {
-    title: `${post.title}`,
+    title: `${post.title} | ${settings.blog_name}`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [post.cover],
     },
     twitter: {
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [post.cover],
     },
   };
 }
