@@ -85,7 +85,26 @@ export default function Post(props) {
       <Container>
         <article className="mx-auto max-w-screen-md ">
           <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-600 md:text-xl break-words">
-            {post.content && <ReactMarkdown>{post.content}</ReactMarkdown>}
+            {post.content && <ReactMarkdown
+              components={{
+                img: ({ node, ...props }) => {
+                  const alt = props.alt || ''
+                  const src = props.src || ''
+                  return (
+                    <Image
+                      src={src}
+                      alt={alt}
+                      width={1920} //
+                      height={1080} // sesuaikan
+                      layout="responsive"
+                      objectFit="contain"
+                    />
+                  )
+                },
+              }}
+            >
+            {post.content}
+            </ReactMarkdown>}
           </div>
           <div className="mb-7 mt-7 flex justify-center">
             <Link
