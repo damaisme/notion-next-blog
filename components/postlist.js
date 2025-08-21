@@ -32,12 +32,11 @@ export default function PostList({
               aspect === "landscape"
                 ? "aspect-video"
                 : aspect === "custom"
-                ? "aspect-[5/4]"
-                : "aspect-square"
+                  ? "aspect-[5/4]"
+                  : "aspect-square"
             )}
-            href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${
-              post.slug
-            }`}>
+            href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug
+              }`}>
             {post?.cover ? (
               <Image
                 src={post.cover}
@@ -66,17 +65,16 @@ export default function PostList({
                 fontSize === "large"
                   ? "text-2xl"
                   : minimal
-                  ? "text-3xl"
-                  : "text-lg",
+                    ? "text-3xl"
+                    : "text-lg",
                 fontWeight === "normal"
                   ? "line-clamp-2 font-medium  tracking-normal text-black"
                   : "font-semibold leading-snug tracking-tight",
                 "mt-2    dark:text-white"
               )}>
               <Link
-                href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${
-                  post.slug
-                }`}>
+                href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug
+                  }`}>
                 <span
                   className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom
       bg-no-repeat
@@ -94,9 +92,8 @@ export default function PostList({
               {post.excerpt && (
                 <p className="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400">
                   <Link
-                    href={`/post/${
-                      pathPrefix ? `${pathPrefix}/` : ""
-                    }${post.slug}`}>
+                    href={`/post/${pathPrefix ? `${pathPrefix}/` : ""
+                      }${post.slug}`}>
                     {post.excerpt}
                   </Link>
                 </p>
@@ -113,7 +110,7 @@ export default function PostList({
                         alt={post?.author?.name}
                         className="rounded-full object-cover"
                         fill
-                        sizes="20px"
+                        sizes="20px" unoptimized
                       />
                     )}
                   </div>

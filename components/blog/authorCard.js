@@ -13,7 +13,7 @@ export default function AuthorCard({ author }) {
                 alt={author.name}
                 className="rounded-full object-cover"
                 fill
-                sizes="96px"
+                sizes="96px" unoptimized
               />
             </Link>
           )}
