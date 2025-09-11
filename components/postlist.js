@@ -108,9 +108,10 @@ export default function PostList({
                       <Image
                         src={post?.author?.avatar_url}
                         alt={post?.author?.name}
+                        priority={true}
                         className="rounded-full object-cover"
                         fill
-                        sizes="20px" unoptimized
+                        sizes="20px"
                       />
                     )}
                   </div>
