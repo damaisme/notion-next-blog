@@ -79,9 +79,13 @@ export default function PostList({
                   className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom
       bg-no-repeat
       transition-[background-size]
-      duration-500
+      duration-300
       hover:bg-[length:100%_3px]
+      active:bg-[length:100%_3px]
+      focus:bg-[length:100%_3px]
       group-hover:bg-[length:100%_10px]
+      group-focus:bg-[length:100%_10px]
+      group-active:bg-[length:100%_10px]
       dark:from-purple-800 dark:to-purple-900">
                   {post.title}
                 </span>
