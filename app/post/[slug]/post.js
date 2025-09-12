@@ -84,7 +84,7 @@ export default function Post(props) {
 
       <Container>
         <article className="mx-auto max-w-screen-md ">
-          <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-600 md:text-md break-words">
+          <div className="prose text-justify mx-auto my-3 dark:prose-invert prose-a:text-blue-600 md:text-md break-words">
             {post.content && <ReactMarkdown
               components={{
                 img: ({ node, ...props }) => {
