@@ -6,4 +6,4 @@ export default async function ContactPage() {
   return <Categories categories={categories} />;
 }
 
-// export const revalidate = 3600;
+export const revalidate = 3600;

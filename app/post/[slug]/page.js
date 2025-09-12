@@ -1,11 +1,14 @@
 import PostPage from "./post";
 
+
+export const revalidate = 3600;
+
 import { getAllPostSlugs, getPostBySlug, getSettings } from "@/lib/notion";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs()
   // console.log(slugs)
-  return slugs  
+  return slugs
 }
 
 

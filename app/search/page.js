@@ -1,7 +1,7 @@
 import { getPublishedPosts } from "@/lib/notion";
-import SearchPage from "./search"; 
+import SearchPage from "./search";
 
-export const revalidate = 100;
+export const revalidate = 3600;
 
 export default async function Home() {
   const posts = await getPublishedPosts();

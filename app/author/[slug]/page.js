@@ -1,6 +1,8 @@
 import AuthorPage from "./author";
 
-import { getAllPostsSlugs, getPostBySlug, getAllAuthors, getAllAuthorsSlugs, getAuthorPostsBySlug} from "@/lib/notion";
+import { getAllPostsSlugs, getPostBySlug, getAllAuthors, getAllAuthorsSlugs, getAuthorPostsBySlug } from "@/lib/notion";
+
+export const revalidate = 3600;
 
 
 export async function generateStaticParams() {
@@ -28,11 +30,11 @@ function bioToMetaDescription(bio, maxLength = 160) {
     : plainText;
 }
 
-export async function generateMetadata({params}){
-  const {slug} = await params
+export async function generateMetadata({ params }) {
+  const { slug } = await params
   const authors = await getAllAuthors();
   const author = authors.find((author) => author.slug === slug)
-  const description = bioToMetaDescription(author.bio) 
+  const description = bioToMetaDescription(author.bio)
 
 
   return {
@@ -40,13 +42,14 @@ export async function generateMetadata({params}){
     description: description || "A great post on our blog.",
     headline: author.name,
     openGraph: {
-    images: [
-      {
-        url: author.avatar_url || "/img/opengraph.jpg",
-        width: 800,
-        height: 600
-      }
-    ]},
+      images: [
+        {
+          url: author.avatar_url || "/img/opengraph.jpg",
+          width: 800,
+          height: 600
+        }
+      ]
+    },
     image: author.image,
     authors: {
       name: author.name,
@@ -58,11 +61,11 @@ export async function generateMetadata({params}){
   };
 }
 
-export default async function AuthorDefault({params}) {
-  const {slug} = await params
+export default async function AuthorDefault({ params }) {
+  const { slug } = await params
   const authors = await getAllAuthors();
   const author = authors.find((author) => author.slug == slug)
-  
+
   const posts = await getAuthorPostsBySlug(slug)
 
   return <AuthorPage author={author} posts={posts} />;

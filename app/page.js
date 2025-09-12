@@ -1,7 +1,7 @@
 import { getPublishedPosts, getSettings } from "../lib/notion";
-import HomePageClient from "./home"; 
+import HomePageClient from "./home";
 
-// export const revalidate = 3600;
+export const revalidate = 3600;
 
 
 export async function generateMetadata() {
