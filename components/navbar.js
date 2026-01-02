@@ -1,162 +1,88 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { Menu, Transition, Disclosure } from "@headlessui/react";
 import Container from "@/components/container";
 import Link from "next/link";
-import Image from "next/image";
 import cx from "clsx";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { myLoader } from "@/utils/all";
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 import NProgress from "nprogress";
 import "@/styles/nprogress.css";
-import ThemeSwitch from "@/components/themeSwitch"
+import ThemeSwitch from "@/components/themeSwitch";
 
 export default function Navbar(props) {
-
-
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleStart = () => {
-      NProgress.start();
-    };
-    const handleComplete = () => {
-      NProgress.done();
-    };
-
-    // Simulate route change events using `pathname`
-    handleStart(); // Start loading on component mount
-    handleComplete(); // Complete loading immediately (no delay for static loads)
-
+    NProgress.start();
+    NProgress.done();
     return () => {
-      // Cleanup for NProgress
       NProgress.remove();
     };
   }, [pathname]);
 
-
-
   const leftmenu = [
-    {
-      label: "Home",
-      href: "/"
-    },
-    {
-      label: "About",
-      href: "/about"
-    },
-    {
-      label: "Archive",
-      href: "/archive"
-    },
-
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Links", href: "/link" },
+    { label: "Contact", href: "/contact" },
+    { label: "Archive", href: "/archive" },
   ];
 
   const rightmenu = [
-    {
-      label: "Category",
-      href: "/category"
-    },
-    {
-      label: "Search",
-      href: "/search"
-    },
-    {
-      label: "Contact",
-      href: "/contact"
-    }
+    { label: "Category", href: "/category" },
+    { label: "Search", href: "/search" },
   ];
 
-  const mobilemenu = [...leftmenu, ...rightmenu];
+  const menu = [...leftmenu, ...rightmenu];
+
+  const isActive = (href) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <div className="w-full sticky top-0 z-20 bg-white dark:bg-black">
-    <Container className="">
-      <nav>
-        <Disclosure as="div">
-          {({ open }) => (
-            <>
-              <div className="flex flex-wrap justify-between md:flex-nowrap md:gap-10">
-                <div className="order-1 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:justify-end">
-                <ThemeSwitch/>
-                  {leftmenu.map((item, index) => (
-                    <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          key={`${item.label}${index}`}
-                          items={item.children}
-                        />
-                      ) : (
-                        <Link
-                          href={item.href}
-                          key={`${item.label}${index}`}
-                          className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}>
-                          {item.label}
-                        </Link>
-                      )}
-                    </Fragment>
-                  ))}
-                </div>
-                <div className="flex w-full items-center justify-between md:w-auto">
-                  <div className="md:hidden"><ThemeSwitch/></div>
-                  <Link href="/" className="w-28 dark:hidden">
-                    {props.logo ? (
-                      <Image
-                        src={props.logo} 
-                        width={50}
-                        height={100}
-                        alt="Logo"
-                        priority={true}
-                        sizes="(max-width: 640px) 100vw, 200px"
-                      />
-                    ) : (
-                      <span className="block font-bold text-center">
-                      {props.blog_name}
-                      </span>
-                    )}
+      <Container>
+        <nav>
+          <Disclosure as="div">
+            {({ open }) => (
+              <>
+                {/* BLOG NAME */}
+                <div className="flex justify-between md:justify-center items-center">
+                  <Link
+                    href="/"
+                    className="text-xl font-bold text-gray-900 dark:text-white"
+                  >
+                    {props.blog_name}
                   </Link>
-                  <Link href="/" className="hidden w-28 dark:block">
-                    {props.logoalt ? (
-                      <Image
-                        src={props.logo} 
-                        alt="Logo"
-                        priority={true}
-                        sizes="(max-width: 640px) 100vw, 200px"
-                      />
-                    ) : (
-                      <span className="block font-bold text-center">
-                      {props.blog_name}
-                      </span>
-                    )}
-                  </Link>
-                  <div className="flex ml-auto items-center md:hidden">
-                    <Link href="/search" className=" md:hidden block text-black px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
-                      Search
-                    </Link>
+
+                  <div className="flex items-center gap-3 md:hidden">
+                    <ThemeSwitch />
                     <Disclosure.Button
                       aria-label="Toggle Menu"
-                      className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 md:hidden ">
+                      className="rounded-md px-2 py-1 text-gray-600 dark:text-gray-300"
+                    >
                       <svg
-                        className="h-6 w-6 fill-current"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24">
-                        {open && (
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        {open ? (
                           <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
                           />
-                        )}
-                        {!open && (
+                        ) : (
                           <path
-                            fillRule="evenodd"
-                            d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 6h16M4 12h16M4 18h16"
                           />
                         )}
                       </svg>
@@ -164,121 +90,114 @@ export default function Navbar(props) {
                   </div>
                 </div>
 
-                <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row">
-                  {rightmenu.map((item, index) => (
+                {/* DESKTOP MENU */}
+                <div className="hidden md:flex items-center justify-center gap-2 pt-2">
+                  {menu.map((item, index) => (
                     <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
+                      {item.children ? (
                         <DropdownMenu
                           menu={item}
-                          key={`${item.label}${index}`}
                           items={item.children}
+                          active={isActive(item.href)}
                         />
                       ) : (
                         <Link
                           href={item.href}
-                          key={`${item.label}${index}`}
-                          className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}>
-                          <span> {item.label}</span>
-                          {item.badge && (
-                            <span className="ml-2 rounded bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-600 dark:bg-cyan-200 dark:text-blue-800 ">
-                              {item.badge}
-                            </span>
+                          className={cx(
+                            "relative px-4 py-2 text-sm font-medium transition-colors",
+                            isActive(item.href)
+                              ? "text-blue-600 dark:text-blue-400 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-blue-600 dark:after:bg-blue-400"
+                              : "text-gray-600 hover:text-blue-500 dark:text-gray-400"
                           )}
+                        >
+                          {item.label}
                         </Link>
                       )}
                     </Fragment>
                   ))}
+                  <ThemeSwitch />
                 </div>
-              </div>
-              <Disclosure.Panel>
-                <div className="order-2 -ml-4 mt-4 flex w-full flex-col items-center justify-start md:hidden">
-                  {mobilemenu.map((item, index) => (
-                    <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          key={`${item.label}${index}`}
-                          items={item.children}
-                          mobile={true}
-                        />
-                      ) : (
-                        // <Link
-                        //   href={item.href}
-                        //   key={`${item.label}${index}`}
-                        //   className="w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                        //   target={item.external ? "_blank" : ""}
-                        //   rel={item.external ? "noopener" : ""}>
-                        //   {item.label}
-                        // </Link>
-                        <Disclosure.Button
-                          as={Link}
-                          href={item.href}
-                          className="w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}
+
+                {/* MOBILE MENU */}
+                <Disclosure.Panel className="md:hidden mt-3">
+                  <div className="flex flex-col">
+                    {menu.map((item, index) => (
+                      <Fragment key={`${item.label}${index}`}>
+                        {item.children ? (
+                          <DropdownMenu
+                            menu={item}
+                            items={item.children}
+                            mobile
+                          />
+                        ) : (
+                          <Disclosure.Button
+                            as={Link}
+                            href={item.href}
+                            className={cx(
+                              " py-3 text-sm font-medium",
+                              isActive(item.href)
+                                ? "text-blue-600 underline underline-offset-4"
+                                : "text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                            )}
                           >
-                          {item.label}
-                        </Disclosure.Button>
-                      )}
-                    </Fragment>
-                  ))}
-                </div>
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-      </nav>
-    </Container>
+                            {item.label}
+                          </Disclosure.Button>
+                        )}
+                      </Fragment>
+                    ))}
+                  </div>
+                </Disclosure.Panel>
+              </>
+            )}
+          </Disclosure>
+        </nav>
+      </Container>
     </div>
   );
 }
 
-const DropdownMenu = ({ menu, items, mobile }) => {
+const DropdownMenu = ({ menu, items, mobile, active }) => {
   return (
-    <Menu
-      as="div"
-      className={cx("relative text-left", mobile && "w-full")}>
+    <Menu as="div" className={cx("relative", mobile && "w-full")}>
       {({ open }) => (
         <>
           <Menu.Button
             className={cx(
-              "flex items-center gap-x-1 rounded-md px-5 py-2 text-sm font-medium  outline-none transition-all focus:outline-none focus-visible:text-indigo-500 focus-visible:ring-1 dark:focus-visible:bg-gray-800",
-              open
-                ? "text-blue-500 hover:text-blue-500"
-                : " text-gray-600 dark:text-gray-400 ",
-              mobile ? "w-full px-4 py-2 " : "inline-block px-4 py-2"
-            )}>
-            <span>{menu.label}</span>
-            <ChevronDownIcon className="mt-0.5 h-4 w-4" />
+              "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors",
+              active
+                ? "text-blue-600 dark:text-blue-400"
+                : "text-gray-600 hover:text-blue-500 dark:text-gray-400",
+              mobile && "w-full justify-between"
+            )}
+          >
+            {menu.label}
+            <ChevronDownIcon className="h-4 w-4" />
           </Menu.Button>
+
           <Transition
             as={Fragment}
-            enter="lg:transition lg:ease-out lg:duration-100"
-            enterFrom="lg:transform lg:opacity-0 lg:scale-95"
-            enterTo="lg:transform lg:opacity-100 lg:scale-100"
-            leave="lg:transition lg:ease-in lg:duration-75"
-            leaveFrom="lg:transform lg:opacity-100 lg:scale-100"
-            leaveTo="lg:transform lg:opacity-0 lg:scale-95">
-            <Menu.Items
-              className={cx(
-                "z-20 origin-top-left rounded-md  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
-                !mobile && "bg-white shadow-lg  dark:bg-gray-800"
-              )}>
-              <div className={cx(!mobile && "py-3")}>
+            enter="transition ease-out duration-100"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute z-20 mt-2 w-56 rounded-md bg-white shadow-lg dark:bg-gray-800">
+              <div className="py-2">
                 {items.map((item, index) => (
-                  <Menu.Item as="div" key={`${item.title}${index}`}>
+                  <Menu.Item key={`${item.title}${index}`}>
                     {({ active }) => (
                       <Link
-                        href={item?.path ? item.path : "#"}
+                        href={item.path || "#"}
                         className={cx(
-                          "flex items-center space-x-2 px-5 py-2 text-sm lg:space-x-4",
+                          "block px-5 py-2 text-sm",
                           active
-                            ? "text-blue-500"
-                            : "text-gray-700 hover:text-blue-500 focus:text-blue-500 dark:text-gray-300"
-                        )}>
-                        <span> {item.title}</span>
+                            ? "text-blue-600"
+                            : "text-gray-700 hover:text-blue-500 dark:text-gray-300"
+                        )}
+                      >
+                        {item.title}
                       </Link>
                     )}
                   </Menu.Item>
@@ -291,3 +210,4 @@ const DropdownMenu = ({ menu, items, mobile }) => {
     </Menu>
   );
 };
+
