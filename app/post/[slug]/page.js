@@ -1,7 +1,7 @@
 import PostPage from "./post";
 
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 import { getAllPostSlugs, getPostBySlug, getSettings } from "@/lib/notion";
 
