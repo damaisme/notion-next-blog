@@ -78,7 +78,7 @@ export default function HomePageClient({ settings, posts }) {
       {lifePosts.length > 0 && (
         <>
           <h1 className="mt-12 text-xl font-bold">
-            <Link href={"/category/Engineering"}>Life, Science, and Others</Link>
+            <Link href={"/category/Engineering"}>Life & Curiosity</Link>
           </h1>
           <div className="grid mt-4 gap-10 gap-y-4 md:grid-cols-2 ">
             {lifePosts.slice(0, 1).map((post) => (
