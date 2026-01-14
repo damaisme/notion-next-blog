@@ -90,7 +90,7 @@ export default function HomePageClient({ settings, posts }) {
               />
             ))}
             <div className="grid gap-x-10 gap-y-4 md:grid-cols-2 ">
-              {lifePosts.slice(2, 8).map((post) => (
+              {lifePosts.slice(1, 8).map((post) => (
                 <PostList
                   key={post.slug}
                   post={post}
@@ -113,7 +113,7 @@ export default function HomePageClient({ settings, posts }) {
             <Link href={"/category/Cyber Security"}>Cyber Security</Link>
           </h1>
           <div className="grid mt-4 gap-10 md:grid-cols-2">
-            {cyberPosts.slice(0, 2).map((post) => (
+            {cyberPosts.slice(0, 1).map((post) => (
               <PostList
                 key={post.slug}
                 post={post}
@@ -122,7 +122,7 @@ export default function HomePageClient({ settings, posts }) {
               />
             ))}
             <div className="grid mt-4 gap-x-10 gap-y-4 md:grid-cols-2 ">
-              {cyberPosts.slice(2, 8).map((post) => (
+              {cyberPosts.slice(1, 8).map((post) => (
                 <PostList
                   key={post.slug}
                   post={post}
