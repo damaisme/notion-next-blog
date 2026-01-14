@@ -7,10 +7,10 @@ export async function generateStaticParams() {
   return categories.map((cat) => ({ slug: cat.name }));
 }
 
-export const revalidate = 3600; // Regenerate every 60 seconds
+// export const revalidate = 3600; //
 
 export default async function CategoryPage({ params }) {
-  var {slug} = await params
+  var { slug } = await params
   slug = decodeURIComponent(slug)
   const posts = await getPostsByCategory(slug);
 

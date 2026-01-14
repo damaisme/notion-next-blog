@@ -2,7 +2,7 @@ import AuthorPage from "./author";
 
 import { getAllPostsSlugs, getPostBySlug, getAllAuthors, getAllAuthorsSlugs, getAuthorPostsBySlug } from "@/lib/notion";
 
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 
 export async function generateStaticParams() {

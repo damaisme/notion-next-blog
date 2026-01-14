@@ -28,4 +28,4 @@ export default async function ArchivePage({ searchParams }) {
 }
 
 
-export const revalidate = 3600;
+// export const revalidate = 3600;

@@ -1,7 +1,7 @@
 import { getAllAuthors, getSettings } from "@/lib/notion";
 import About from "./about";
 
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 export default async function AboutPage() {
   const authors = await getAllAuthors();
