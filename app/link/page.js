@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllLinks } from "@/lib/notion";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export default async function LinkPage() {
   const links = await getAllLinks();

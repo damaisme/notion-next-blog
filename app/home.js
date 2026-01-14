@@ -1,45 +1,151 @@
-"use client"; // <-- Tandai sebagai Client Component
 
-// Pindahkan semua import yang berhubungan dengan UI ke sini
+"use client";
+
 import Link from "next/link";
 import Container from "@/components/container";
 import PostList from "@/components/postlist";
 
-// Komponen ini menerima 'posts' sebagai props
+function hasCategory(post, name) {
+  return post.categories?.some(
+    (c) => c.name.toLowerCase() === name.toLowerCase()
+  );
+}
+
 export default function HomePageClient({ settings, posts }) {
-  // Semua JSX yang tadinya ada di page.js, sekarang ada di sini.
+  if (!posts || posts.length === 0) return null;
+
+  // ===== CATEGORY NAMES =====
+  const ENGINEERING = "Engineering";
+  const CYBER = "Cyber Security";
+
+  // ===== FILTER POSTS =====
+  const engineeringPosts = posts.filter((post) =>
+    hasCategory(post, ENGINEERING)
+  );
+
+  const cyberPosts = posts.filter((post) =>
+    hasCategory(post, CYBER)
+  );
+
+  const lifePosts = posts.filter(
+    (post) =>
+      !hasCategory(post, ENGINEERING) &&
+      !hasCategory(post, CYBER)
+  );
+
   return (
-    <>
-      {posts && posts.length > 0 && (
-        <Container>
-          <div className="text-center">
-            <p className="text-lg">{settings?.quotes}<br/>- {settings.quotesBy}</p>
+    <Container>
+      {/* QUOTES */}
+      <div className="text-center">
+        <p className="text">
+          {settings?.quotes}
+          <br />- {settings?.quotesBy}
+        </p>
+      </div>
+
+
+
+      {/* ================= ENGINEERING ================= */}
+      {engineeringPosts.length > 0 && (
+        <>
+          <h1 className="mt-12 text-xl font-bold">
+            <Link href={"/category/Engineering"}> Engineering</Link>
+          </h1>
+          <div className="grid mt-4 gap-10 gap-y-4 md:grid-cols-2 ">
+            {engineeringPosts.slice(0, 1).map((post) => (
+              <PostList
+                key={post.slug}
+                post={post}
+                aspect={"landscape"}
+                preloadImage
+              />
+            ))}
+            <div className="grid gap-x-10 gap-y-4 md:grid-cols-2 ">
+              {engineeringPosts.slice(1, 8).map((post) => (
+                <PostList
+                  key={post.slug}
+                  post={post}
+                  minimal
+                />
+              ))}
+            </div>
           </div>
-          <div className="grid mt-8 gap-10 md:grid-cols-2 lg:gap-10 ">
-            {posts.slice(0, 2).map(post => (
+        </>
+      )}
+
+
+      {/* ================= LIFE ================= */}
+      {lifePosts.length > 0 && (
+        <>
+          <h1 className="mt-12 text-xl font-bold">
+            <Link href={"/category/Engineering"}>Life, Science, and Others</Link>
+          </h1>
+          <div className="grid mt-4 gap-10 gap-y-4 md:grid-cols-2 ">
+            {lifePosts.slice(0, 1).map((post) => (
               <PostList
                 key={post.slug}
                 post={post}
                 aspect="landscape"
-                preloadImage={true}
+                preloadImage
               />
             ))}
+            <div className="grid gap-x-10 gap-y-4 md:grid-cols-2 ">
+              {lifePosts.slice(2, 8).map((post) => (
+                <PostList
+                  key={post.slug}
+                  post={post}
+                  minimal
+                />
+              ))}
+            </div>
           </div>
-          <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3 ">
-            {posts.slice(2, 14).map(post => (
-              <PostList key={post.slug} post={post} aspect="square" />
-            ))}
-          </div>
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/archive"
-              className="relative inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300"
-            >
-              <span>View all Posts</span>
-            </Link>
-          </div>
-        </Container>
+
+        </>
       )}
-    </>
+
+
+
+
+      {/* ================= CYBER SECURITY ================= */}
+      {cyberPosts.length > 0 && (
+        <>
+          <h1 className="mt-12 text-xl font-bold">
+            <Link href={"/category/Cyber Security"}>Cyber Security</Link>
+          </h1>
+          <div className="grid mt-4 gap-10 md:grid-cols-2">
+            {cyberPosts.slice(0, 2).map((post) => (
+              <PostList
+                key={post.slug}
+                post={post}
+                aspect={"landscape"}
+                preloadImage
+              />
+            ))}
+            <div className="grid mt-4 gap-x-10 gap-y-4 md:grid-cols-2 ">
+              {cyberPosts.slice(2, 8).map((post) => (
+                <PostList
+                  key={post.slug}
+                  post={post}
+                  minimal
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+
+
+      {/* CTA */}
+      <div className="mt-12 flex justify-center">
+        <Link
+          href="/archive"
+          className="relative inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300"
+        >
+          <span>View all Posts</span>
+        </Link>
+      </div>
+    </Container>
   );
 }
+

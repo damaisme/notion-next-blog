@@ -9,15 +9,15 @@ export default async function Post({ searchParams }) {
   const pageIndex = parseInt(page, 10) || 1;
 
   // Set the number of posts to be displayed per page
-  const POSTS_PER_PAGE = 6;
+  const POSTS_PER_PAGE = 20;
 
   // Define the parameters for fetching posts based on the current page
-  const params = {
-    pageIndex: (pageIndex - 1) * POSTS_PER_PAGE,
-    limit: pageIndex * POSTS_PER_PAGE
-  };
 
-  const posts = await getPaginatedPosts(params);
+  const posts = await getPaginatedPosts({
+    pageIndex,
+    limit: POSTS_PER_PAGE,
+  });
+
 
   // Check if the current page is the first or the last
   const isFirstPage = pageIndex < 2;
@@ -34,7 +34,7 @@ export default async function Post({ searchParams }) {
       )}
       <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
         {posts.map(post => (
-          <PostList key={post.id} post={post} aspect="square" />
+          <PostList minimal={true} key={post.id} post={post} aspect="square" />
         ))}
       </div>
 
