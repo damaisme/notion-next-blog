@@ -3,6 +3,7 @@ import Link from "next/link";
 import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { parseISO, format } from "date-fns";
 
 import CategoryLabel from "@/components/blog/category";
@@ -86,6 +87,7 @@ export default function Post(props) {
         <article className="mx-auto max-w-screen-md ">
           <div className="prose text-justify mx-auto my-3 dark:prose-invert prose-a:text-blue-600 md:text-md break-words">
             {post.content && <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
               components={{
                 img: ({ node, ...props }) => {
                   const alt = props.alt || ''

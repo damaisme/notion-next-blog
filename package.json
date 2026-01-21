@@ -25,7 +25,8 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.57.0",
     "react-markdown": "^10.1.0",
-    "react-notion-x": "^7.4.2"
+    "react-notion-x": "^7.4.2",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
