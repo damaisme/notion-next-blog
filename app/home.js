@@ -74,6 +74,35 @@ export default function HomePageClient({ settings, posts }) {
       )}
 
 
+      {/* ================= CYBER SECURITY ================= */}
+      {cyberPosts.length > 0 && (
+        <>
+          <h1 className="mt-12 text-xl font-bold">
+            <Link href={"/category/Cyber Security"}>Cyber Security</Link>
+          </h1>
+          <div className="grid mt-4 gap-10 gap-y-4  md:grid-cols-2">
+            {cyberPosts.slice(0, 1).map((post) => (
+              <PostList
+                key={post.slug}
+                post={post}
+                aspect={"landscape"}
+                preloadImage
+              />
+            ))}
+            <div className="grid gap-x-10 gap-y-4 md:grid-cols-2 ">
+              {cyberPosts.slice(1, 8).map((post) => (
+                <PostList
+                  key={post.slug}
+                  post={post}
+                  minimal
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+
       {/* ================= LIFE ================= */}
       {lifePosts.length > 0 && (
         <>
@@ -106,33 +135,6 @@ export default function HomePageClient({ settings, posts }) {
 
 
 
-      {/* ================= CYBER SECURITY ================= */}
-      {cyberPosts.length > 0 && (
-        <>
-          <h1 className="mt-12 text-xl font-bold">
-            <Link href={"/category/Cyber Security"}>Cyber Security</Link>
-          </h1>
-          <div className="grid mt-4 gap-10 md:grid-cols-2">
-            {cyberPosts.slice(0, 1).map((post) => (
-              <PostList
-                key={post.slug}
-                post={post}
-                aspect={"landscape"}
-                preloadImage
-              />
-            ))}
-            <div className="grid mt-4 gap-x-10 gap-y-4 md:grid-cols-2 ">
-              {cyberPosts.slice(1, 8).map((post) => (
-                <PostList
-                  key={post.slug}
-                  post={post}
-                  minimal
-                />
-              ))}
-            </div>
-          </div>
-        </>
-      )}
 
 
 
