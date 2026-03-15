@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import { ThemeProvider } from "./providers";
 import { Inter, Lora } from "next/font/google";
 import { getSettings } from "@/lib/notion";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" className="bg-white dark:bg-black" suppressHydrationWarning>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body className="bg-white dark:bg-black">
         <ThemeProvider
           attribute="class"
