@@ -43,7 +43,7 @@ export default function Navbar(props) {
   };
 
   return (
-    <div className="w-full sticky top-0 z-20 bg-white dark:bg-black">
+    <div className="w-full sticky top-0 z-20 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
       <Container>
         <nav>
           <Disclosure as="div">
